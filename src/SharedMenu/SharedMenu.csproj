@@ -5,18 +5,4 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="SharedNavMenu.razor.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="SharedNavMenu.razor.css" />
-  </ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-* " />
-	</ItemGroup>
-
 </Project>

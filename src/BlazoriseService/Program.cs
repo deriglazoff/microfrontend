@@ -1,4 +1,6 @@
-﻿namespace MyNewBlazoriseApp
+﻿using BlazoriseService;
+
+namespace MyNewBlazoriseApp
 {
     public class Program
     {

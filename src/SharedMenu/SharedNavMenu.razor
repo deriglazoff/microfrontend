@@ -1,22 +1,25 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components
-<div class="navmenu">
-    <input type="checkbox" title="Menu expand/collapse toggle" id="navmenu-toggle" class="navmenu-icon" />
-    <label for="navmenu-toggle" class="navmenu-icon"></label>
-    <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
+﻿@using Microsoft.AspNetCore.Components.Routing
 
-        <Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
+
+    <nav class="flex-column">
             @foreach (var item in MenuStatic.Menu.Items)
             {
                 <div class="nav-item px-3">
-                    <FluentNavLink
-                        Href="@item.Url" IconColor="Color.Accent">@item.Name</FluentNavLink>
+                    <NavLink class="nav-link" href="@item.Url">
+                        <span  aria-hidden="true"></span>@item.Name
+                    </NavLink>
                 </div>
-            }
 
-        </Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu>
+            }
     </nav>
-</div>
 
 @code {
-    private bool expanded = true;
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
 }
