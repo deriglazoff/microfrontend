@@ -1,0 +1,19 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+<div class="navmenu">
+    <input type="checkbox" title="Menu expand/collapse toggle" id="navmenu-toggle" class="navmenu-icon" />
+    <label for="navmenu-toggle" class="navmenu-icon"></label>
+    <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
+
+        <Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
+            @foreach (var item in MenuStatic.Menu.Items)
+            {
+                <Microsoft.FluentUI.AspNetCore.Components.FluentNavLink Href="@item.Url" IconColor="Color.Accent">@item.Name</Microsoft.FluentUI.AspNetCore.Components.FluentNavLink>
+            }
+
+        </Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu>
+    </nav>
+</div>
+
+@code {
+    private bool expanded = true;
+}
