@@ -7,7 +7,10 @@
         <Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
             @foreach (var item in MenuStatic.Menu.Items)
             {
-                <Microsoft.FluentUI.AspNetCore.Components.FluentNavLink Href="@item.Url" IconColor="Color.Accent">@item.Name</Microsoft.FluentUI.AspNetCore.Components.FluentNavLink>
+                <div class="nav-item px-3">
+                    <FluentNavLink
+                        Href="@item.Url" IconColor="Color.Accent">@item.Name</FluentNavLink>
+                </div>
             }
 
         </Microsoft.FluentUI.AspNetCore.Components.FluentNavMenu>
