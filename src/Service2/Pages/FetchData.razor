@@ -1,0 +1,43 @@
+﻿@page "/"
+@using Service2.Data
+@inject SportStatisticService ForecastService
+
+<PageTitle>SportStatistic</PageTitle>
+
+<h1>Спортивно-развлекательные мероприятия</h1>
+
+@if (statistics == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Дата проведения</th>
+                <th>Время проведения</th>
+                <th>Наименование</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var statistic in statistics)
+            {
+                <tr>
+                    <td>@statistic.Date.ToShortDateString()</td>
+                    <td>@statistic.TimeSpending.ToString("HH:mm:ss")</td>
+                    <td>@statistic.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private SportStatistic[]? statistics;
+
+    protected override async Task OnInitializedAsync()
+    {
+        statistics = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
+    }
+}
