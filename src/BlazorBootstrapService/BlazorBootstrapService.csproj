@@ -10,4 +10,7 @@
     <PackageReference Include="Blazor.Bootstrap" Version="2.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharedMenu\SharedMenu.csproj" />
+  </ItemGroup>
 </Project>
