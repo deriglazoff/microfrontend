@@ -1,25 +1,34 @@
-﻿@using Microsoft.AspNetCore.Components.Routing
+﻿@inject NavigationManager navigationManager
+@using Microsoft.AspNetCore.Components.Routing
 
 
-    <nav class="flex-column">
-            @foreach (var item in MenuStatic.Menu.Items)
-            {
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="@item.Url">
-                        <span  aria-hidden="true"></span>@item.Name
-                    </NavLink>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <a href="#" class="navbar-brand">Список сервисов</a>
                 </div>
 
-            }
-    </nav>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+                <div class="navbar-collapse collapse" id="mobile_menu">
+                    <ul class="nav navbar-nav">
+                        @foreach (var item in MenuStatic.Menu.Items)
+                        {
+                            @if (navigationManager.Uri.TrimEnd('/') == item.Url.TrimEnd('/'))
+                            {
+                                <li style="background-color:red !important"><a href="@item.Url">@item.Name</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@item.Url">@item.Name</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
