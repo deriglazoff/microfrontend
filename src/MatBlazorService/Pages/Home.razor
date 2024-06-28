@@ -8,27 +8,25 @@
 
 <MatTable Items="users" Class="mat-elevation-z8">
     <MatTableHeader>
-        <MatTableRow>
-            <MatTableCell>Имя</MatTableCell>
-            <MatTableCell>Email</MatTableCell>
-            <MatTableCell>Роль</MatTableCell>
-            <MatTableCell>Действия</MatTableCell>
-        </MatTableRow>
+        <th>Имя</th>
+        <th>Email</th>
+        <th>Роль</th>
+        <th>Действия</th>
     </MatTableHeader>
-    <MatTableBody>
+    <MatTableRow>
         @foreach (var user in users)
         {
             <MatTableRow>
-                <MatTableCell>@user.Name</MatTableCell>
-                <MatTableCell>@user.Email</MatTableCell>
-                <MatTableCell>@user.Role</MatTableCell>
-                <MatTableCell>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
                     <MatButton OnClick="@(() => OpenEditUserDialog(user))">Редактировать</MatButton>
                     <MatButton OnClick="@(() => DeleteUser(user))">Удалить</MatButton>
-                </MatTableCell>
+                </td>
             </MatTableRow>
         }
-    </MatTableBody>
+    </MatTableRow>
 </MatTable>
 
 <MatDialog @bind-Open="isDialogOpen">
