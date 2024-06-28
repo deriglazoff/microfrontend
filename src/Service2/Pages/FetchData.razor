@@ -1,14 +1,12 @@
 ﻿@page "/"
 @using Service2.Data
-@inject WeatherForecastService ForecastService
+@inject SportStatisticService ForecastService
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>SportStatistic</PageTitle>
 
-<h1>Weather forecast</h1>
+<h1>Спортивно-развлекательные мероприятия</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
-
-@if (forecasts == null)
+@if (statistics == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -17,20 +15,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Дата проведения</th>
+                <th>Время проведения</th>
+                <th>Наименование</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var statistic in statistics)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@statistic.Date.ToShortDateString()</td>
+                    <td>@statistic.TimeSpending.ToString("HH:mm:ss")</td>
+                    <td>@statistic.Summary</td>
                 </tr>
             }
         </tbody>
@@ -38,10 +34,10 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private SportStatistic[]? statistics;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
+        statistics = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
     }
 }
