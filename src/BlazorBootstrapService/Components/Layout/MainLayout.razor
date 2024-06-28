@@ -2,10 +2,9 @@
 
 <div class="bb-page">
 
-    <Sidebar @ref="sidebar"
-             IconName="IconName.BootstrapFill"
-             Title="Blazor Bootstrap"
-             DataProvider="SidebarDataProvider" />
+    <Sidebar>
+            <SharedMenu.SharedNavMenu />
+    </Sidebar>
 
     <main>
         <div class="bb-top-row px-4 d-flex justify-content-end">
