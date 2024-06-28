@@ -1,5 +1,4 @@
 ﻿@page "/weather"
-@inject HttpClient Http
 
 <PageTitle>Weather</PageTitle>
 
@@ -41,7 +40,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        var a  = new List<WeatherForecast> { new WeatherForecast { Date = DateOnly.MaxValue } };
+        forecasts = a.ToArray();
     }
 
     public class WeatherForecast
