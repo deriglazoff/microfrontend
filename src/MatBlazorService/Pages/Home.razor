@@ -1,0 +1,115 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@using MatBlazor
+
+<h3>Управление пользователями</h3>
+
+<MatButton Raised="true" OnClick="@OpenAddUserDialog">Добавить пользователя</MatButton>
+
+<MatTable Items="users" Class="mat-elevation-z8">
+    <MatTableHeader>
+        <MatTableRow>
+            <MatTableCell>Имя</MatTableCell>
+            <MatTableCell>Email</MatTableCell>
+            <MatTableCell>Роль</MatTableCell>
+            <MatTableCell>Действия</MatTableCell>
+        </MatTableRow>
+    </MatTableHeader>
+    <MatTableBody>
+        @foreach (var user in users)
+        {
+            <MatTableRow>
+                <MatTableCell>@user.Name</MatTableCell>
+                <MatTableCell>@user.Email</MatTableCell>
+                <MatTableCell>@user.Role</MatTableCell>
+                <MatTableCell>
+                    <MatButton OnClick="@(() => OpenEditUserDialog(user))">Редактировать</MatButton>
+                    <MatButton OnClick="@(() => DeleteUser(user))">Удалить</MatButton>
+                </MatTableCell>
+            </MatTableRow>
+        }
+    </MatTableBody>
+</MatTable>
+
+<MatDialog @bind-Open="isDialogOpen">
+    <MatDialogTitle>@(isEditMode ? "Редактировать пользователя" : "Добавить пользователя")</MatDialogTitle>
+    <MatDialogContent>
+        <MatTextField @bind-Value="currentUser.Name" Label="Имя" Required="true"></MatTextField>
+        <MatTextField @bind-Value="currentUser.Email" Label="Email" Required="true" Type="email"></MatTextField>
+        <MatTextField @bind-Value="currentUser.Role" Label="Роль"></MatTextField>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="SaveUser">Сохранить</MatButton>
+        <MatButton OnClick="@(() => isDialogOpen = false)">Отмена</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    public class User
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required, EmailAddress]
+        public string Email { get; set; }
+
+        public string Role { get; set; }
+    }
+
+    private List<User> users = new List<User>
+    {
+        new User { Id = 1, Name = "John Doe", Email = "john@example.com", Role = "Admin" },
+        new User { Id = 2, Name = "Jane Smith", Email = "jane@example.com", Role = "User" }
+    };
+
+    private User currentUser = new User();
+    private bool isDialogOpen = false;
+    private bool isEditMode = false;
+
+    private void OpenAddUserDialog()
+    {
+        currentUser = new User();
+        isEditMode = false;
+        isDialogOpen = true;
+    }
+
+    private void OpenEditUserDialog(User user)
+    {
+        currentUser = new User
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email,
+            Role = user.Role
+        };
+        isEditMode = true;
+        isDialogOpen = true;
+    }
+
+    private void SaveUser()
+    {
+        if (isEditMode)
+        {
+            var user = users.FirstOrDefault(u => u.Id == currentUser.Id);
+            if (user != null)
+            {
+                user.Name = currentUser.Name;
+                user.Email = currentUser.Email;
+                user.Role = currentUser.Role;
+            }
+        }
+        else
+        {
+            currentUser.Id = users.Max(u => u.Id) + 1;
+            users.Add(currentUser);
+        }
+        isDialogOpen = false;
+    }
+
+    private void DeleteUser(User user)
+    {
+        users.Remove(user);
+    }
+}
