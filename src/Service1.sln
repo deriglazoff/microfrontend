@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service3", "Service3\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMenu", "SharedMenu\SharedMenu.csproj", "{748BE618-95A1-41AD-B3E4-FC9AA631CD8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{B2EDDC45-B56C-4D38-9AC7-366D5F7F98DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{748BE618-95A1-41AD-B3E4-FC9AA631CD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748BE618-95A1-41AD-B3E4-FC9AA631CD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{748BE618-95A1-41AD-B3E4-FC9AA631CD8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2EDDC45-B56C-4D38-9AC7-366D5F7F98DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2EDDC45-B56C-4D38-9AC7-366D5F7F98DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2EDDC45-B56C-4D38-9AC7-366D5F7F98DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2EDDC45-B56C-4D38-9AC7-366D5F7F98DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
