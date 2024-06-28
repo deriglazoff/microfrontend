@@ -1,0 +1,82 @@
+﻿@page "/index"
+@using BlazorServerApp.Data
+@using Blazored.LocalStorage
+@using System.Security.Claims
+@inject NavigationManager navigationManager
+@inject ILocalStorageService localStorageService
+@inject IAuthorizationService authorizationService
+
+@if (IsUserAuthenticated)
+{
+    <div>
+    <br />
+    <br />
+    <br />
+        <div class="row justify-content-center">
+            <input class="form-control" style="width:50%" @bind="NameService" placeholder="Поиск сервиса"/>
+        </div>
+    <br />
+    <br />
+        <div class="row justify-content-center">
+            @foreach (var item in iconServices)
+            {
+                <div class="col-1"><IconService ImageSrc="@item.Image" Name="@item.Name" Url="@item.Url"/></div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <h3><b>Вы не зарегистрированы!</b></h3>
+}
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    ClaimsPrincipal user;
+
+    [Parameter]
+    public string NameService { get; set; }
+
+    private List<(string Image, string Name, string Url)> iconServices = new();
+
+    bool IsUserAuthenticated;
+    bool IsPublisher;
+    bool IsSeniorEmployee;
+
+    public int Count { get; set; } = 400;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+            IsUserAuthenticated = true;
+
+        if (user.IsInRole("Publisher"))
+            IsPublisher = true;
+
+        if ((await authorizationService.AuthorizeAsync(user, "SeniorEmployee")).Succeeded)
+            IsSeniorEmployee = true;
+
+
+
+        iconServices.AddRange(CreateIconServices());
+    }
+
+    private static List<(string Image, string Name, string Url)> CreateIconServices() => new List<(string, string, string)>()
+        {
+            new ("/img/portal_logo.jpg", "Hydra2.0", "https://localhost:7086/"),
+            new ("/img/cs_logo.png", "Коммуникационный сервис", ""),
+            new ("/img/bonus_logo.png", "Бонусная система", ""),
+            new ("/img/admin_logo.png", "Админ панель", ""),
+            new ("/img/litigation_logo.png", "Судебные иски", ""),
+            new ("/img/sms_logo.png", "Смс сервис", "")
+        };
+
+    private void Change()
+    {
+        
+    }
+}

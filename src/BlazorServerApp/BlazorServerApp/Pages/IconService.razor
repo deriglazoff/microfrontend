@@ -1,0 +1,75 @@
+﻿@using MudBlazor
+
+<div class="container">
+    <img src=@ImageSrc class="easy-zoom-effect" alt="Увеличивающееся изображение" onclick="@NavigatePage">
+<br />
+    <p class="text-center">@Name</p>
+</div>
+
+<style>
+.zoom-effect {
+    transition: transform 0.2s;
+}
+
+.zoom-effect:hover {
+    transform: scale(2);
+}
+
+.easy-zoom-effect {
+    transition: transform 0.5s ease;
+}
+
+.easy-zoom-effect:hover {
+    transform: scale(1.25);
+}
+
+.container {
+    height: 150px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: solid 1px blue; */
+}
+
+.container img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+</style>
+
+@code {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    [Parameter]
+    public string ImageSrc { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Url { get; set; }
+
+    public IconService()
+    {       
+    }
+
+    public IconService(string imageSrc, string name)
+    {
+        ImageSrc = imageSrc;
+        Name = name;
+    }
+
+    public void NavigatePage()
+    {
+        if(!string.IsNullOrWhiteSpace(Url))
+        {
+            NavigationManager.NavigateTo(Url);
+        }
+    }
+}
